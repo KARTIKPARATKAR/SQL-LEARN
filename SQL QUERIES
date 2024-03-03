@@ -1,1 +1,228 @@
+Note:
+1)These queries are executed in Oracle. 
+2)In this file,the line which is starting from "--" is considered as comment to understand more about the SQL queries that i have written.
+
+
+--Here we have created a table with name test and added one column namely testcolumn of datatype integer.
+CREATE TABLE test(
+testcolumn INT 
+);              
+
+--What if we want to add more columns in a table called test. We use alter table command.
+ALTER TABLE test ADD anothercolumn VARCHAR(255);
+
+
+-- This will display the table with its column and records. As we dont have any record in the table'test', it wont show anything.
+SELECT * FROM test;  
+
+
+-- Here we have dropped the table.
+DROP TABLE test;  
+
+
+--Here we are creating table band
+--1st column name having datatype varchar of max size 255 with no null value
+--2nd column id having int datatype and not nulll value             
+--Defining id as the primary key to identify row uniquely
+CREATE TABLE band(             
+name VARCHAR(255) NOT NULL,                               
+id INT NOT NULL ,             
+PRIMARY KEY (id)               
+);
+
+
+
+--creating table name albums
+--1st column is id with int datatype
+--2nd column is name with int datatype
+--3rd column is release_year with datatype int
+--4th column is bandid with int datatype
+--primary key is id
+--foreign key is bandid which is referencing from table band(id)
+CREATE TABLE albums(
+id INT NOT NULL,
+name VARCHAR(255) NOT NULL,
+release_year INT,
+bandid INT NOT NULL ,
+PRIMARY KEY (id),
+FOREIGN KEY(bandid) REFERENCES band(id)
+);
+
+
+
+--We want to insert the data in tables band and albums
+--We have inserted 4 rows of values to the table band
+insert into band values('Iron Maidon',1);  
+insert into band values('Deuce',2);
+insert into band values('Avenged Sevenfold',3)
+insert into band values('Ankor',4);
+
+
+
+--Here we have displayed the table band that we created previously
+select * from band;
+
+
+
+--We only wanted two bands back insted of all the band
+select * from band where id<=2;
+
+
+
+--We want to select only specific column. (let name column we want)
+select name from band;
+
+
+
+--We want to display the columns with different name that we gave the name while creating table.
+--For that we can use AS keyword 
+select name as "THIS IS NAME", id as "ID OF BANDS" from band;
+
+
+
+--We want to order the table according to the alphabetical order of the name.(A to z order)
+select * from band order by name;
+
+
+
+--We want to order the table according to the alphabetical in reverse order by name.(Z to A ------order)
+select * from band order by name desc;
+
+
+
+--Now we will insert the values in albums table.
+insert into albums values(1,'THe number of the beats',1985,1);
+insert into albums values(2,'Power Slave',1984,1);
+insert into albums values(3,'Nightmare',2018,2);
+insert into albums values(4,'Nightmare',2010,3);
+insert into albums values(5,'Test Album',Null,3);
+
+
+
+--We will display the content of the table albums
+select * from  albums;
+
+
+
+--We want to display only the name of the albums
+select name from albums; 
+--This is giving Nightmare name two times but we dont need to have written Nightmare twice.
+
+
+                         
+--To tackle this, we have a keyword called distinct select in sql which will display only the distinct values in that column. 
+--It will not repeat the values if it is occuring multiple times.
+select distinct name from albums;
+
+
+
+--Now we want to update the values in the table.This could be done using update.
+update albums set release_year=2023 where id=4;
+--Now the release year will be updated to 2023 where id is equal to the 4
+select * from albums;   --This will display the table albums
+
+
+
+-- We want all those bands who were released before year 2000
+select * from albums where release_year < 2000;
+
+
+
+--We want those information of those bands whose name is similar to the perticular string.
+--That perticular string is"er"
+--When we write "%er%" means that any no of characters is okay before and after "er"
+--When we write "er%" means that any no of character is okay only after the "er"
+--When we write "%er" means that any no of character is okay before the "er"
+select * from albums where name like '%er%';
+
+
+
+--Giving two conditions in 'or' state to display the perticular result.
+select * from albums where name like '%er%' or bandid=2;
+
+
+
+--Giving two conditions in 'and' state to display the perticular result.
+select * from albums where release_year=1984 and bandid=1;
+
+
+
+--We want to print the information of rows whose value is in between then we use between keyword
+select * from albums where release_year between 2000 and 2025;
+
+
+
+--We want to display all those albums where the release_year has null value
+select * from albums where release_year is null;
+
+
+
+--We want to delete the information/tuple of albums where release_year has null value.
+delete from albums where id=5;
+select * from albums;
+
+
+
+--Joins in sql
+--The following sql command will join the tables band and albums where band.id = albums.bandid
+select * from band join albums on band.id=albums.bandid;
+
+
+
+--inner join
+select * from band inner join albums on band.id=albums.bandid;
+
+
+
+--left join
+select * from band left join albums on band.id=albums.bandid;
+
+
+
+--right join
+select * from band right join albums on band.id=albums.bandid;
+
+
+
+--Note:left join and right join are one and the same thing when we swap the names of the table while writing the query.
+
+
+
+--We want average of the year column in albums table.
+select avg(release_year) from albums;
+
+
+
+--We want the sum of the release_year in albums table.
+select sum(release_year) from albums;
+
+
+
+--Counting how many rows are present for a perticular bandid in a table albums
+select bandid , count(bandid) from albums group by bandid;
+
+
+
+--One example of complex sql query is given below
+SELECT b.name AS bandname, COUNT(a.id) AS num_albums
+FROM band b
+LEFT JOIN albums a ON b.id = a.bandid
+GROUP BY b.id, b.name;
+
+
+
+--When you want to use where keyword in sql query after group b statement, use having instead of --where.
+SELECT b.name AS bandname, COUNT(a.id) AS num_albums
+FROM band b
+LEFT JOIN albums a ON b.id = a.bandid
+GROUP BY b.id, b.name
+HAVING COUNT(a.id) = 1;
+
+
+
+
+
+
+
+
 
