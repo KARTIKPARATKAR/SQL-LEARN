@@ -4,3 +4,5 @@ I have followed a Youtube tutorial of WebDevSimplified where he has introduced u
 
 Link of that youtube video is [here](https://www.youtube.com/watch?v=p3qvj9hO_Bo&t=30s)
 
+SQL Queries are listed in this file [here](https://github.com/KARTIKPARATKAR/SQL-LEARN/blob/main/SQL%20QUERIES)
+
