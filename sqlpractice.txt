@@ -1,82 +1,98 @@
--- Creating a table with name band
-create table band ( name varchar(255) NOT NULL,
-                   id int not null,
-                   primary key(id)
-                   );
--- Adding one new column with name release_year as INT data types
-ALTER TABLE band ADD release_year INT ;
---Adding one new column with name country as varchar(255) data types
-ALTER TABLE band ADD country varchar(255) NOT NULL;
+-- ============================================================
+-- 🏆 SQL Script for Creating and Managing the 'band' Table
+-- ============================================================
 
--- Now adding the values/entries to the table band
-INSERT INTO band VALUES ( 'KSP' , 1,2020,'India');
+-- 🔹 Creating the 'band' table with 'name', 'id' as Primary Key
+CREATE TABLE band (
+    name VARCHAR(255) NOT NULL,
+    id INT NOT NULL,
+    PRIMARY KEY(id)
+);
 
--- Printing whole table
--- select * from band;  
+-- 🔹 Adding new columns: 'release_year' (INT) and 'country' (VARCHAR)
+ALTER TABLE band ADD release_year INT;
+ALTER TABLE band ADD country VARCHAR(255) NOT NULL;
 
--- Inserting entries in table band
-insert into band values ( 'tata',2,2021,'India');
-insert into band values ( 'mahindra',3,2022,'India');
-insert into band values ( 'toyota',4,2023,'China');
+-- ============================================================
+-- 🏷️ Inserting Data into 'band' Table
+-- ============================================================
 
+INSERT INTO band VALUES ('KSP', 1, 2020, 'India');
+INSERT INTO band VALUES ('Tata', 2, 2021, 'India');
+INSERT INTO band VALUES ('Mahindra', 3, 2022, 'India');
+INSERT INTO band VALUES ('Toyota', 4, 2023, 'China');
 
--- This will select the records which is having id leass than or equal to 3
--- select * from band where id <=3; 
+-- 🔹 Adding more entries, including a duplicate name ('Tata')
+INSERT INTO band VALUES ('Ford', 5, 2019, 'America');
+INSERT INTO band VALUES ('Tata', 6, 2018, 'India');
+INSERT INTO band VALUES ('BYD', 7, 2015, 'China');
+INSERT INTO band VALUES ('Maruti', 8, NULL, 'India');  -- Null release_year
 
--- SO this command will select name as band_name , id as band_id , release_year as band_release_year and country as band_country and display
--- select name as "band_name",id as "band_id", release_year as "band_release_year",country as "band_country" from band; 
+-- ============================================================
+-- 📌 Querying the Data
+-- ============================================================
 
--- This will arrange the table according to A to Z by country column
--- select  * from band order by country; 
+-- 🔹 Display all records in the 'band' table
+SELECT * FROM band;
 
--- This will order by name from A to Z
--- select * from band order by name; 
+-- 🔹 Select records where 'id' is less than or equal to 3
+SELECT * FROM band WHERE id <= 3;
 
--- This will order the table by name column from Z to A
--- select * from band order by name DESC; 
+-- 🔹 Renaming columns in the output for better readability
+SELECT 
+    name AS "band_name", 
+    id AS "band_id", 
+    release_year AS "band_release_year", 
+    country AS "band_country" 
+FROM band;
 
--- This will create one more row /datapoint in a table called band
-   insert into band values ('ford',5,2019,'america');
+-- ============================================================
+-- 📌 Sorting Data
+-- ============================================================
 
--- Here i am writing a entry which has some duplicates as tata entry which we had written previously
-   insert into band values('tata',6,2018,'India'); 
+-- 🔹 Sort records alphabetically by 'country' (A → Z)
+SELECT * FROM band ORDER BY country;
 
--- This will display everything be it duplicate or distinct
--- select * from band; 
+-- 🔹 Sort records alphabetically by 'name' (A → Z)
+SELECT * FROM band ORDER BY name;
 
--- This will display only distinct name from band table.
--- select distinct name from band; 
+-- 🔹 Sort records in descending order by 'name' (Z → A)
+SELECT * FROM band ORDER BY name DESC;
 
--- This will display only distinct country
--- select distinct country from band; 
+-- ============================================================
+-- 🔍 Filtering and Searching in Data
+-- ============================================================
 
--- This command will update the country name as Mahindra-India where id is 3
--- update band set country = 'Mahindra-India' where id=3; 
+-- 🔹 Find all bands where 'name' contains the letter 'a'
+SELECT * FROM band WHERE name LIKE '%a%';
 
--- This will print if a is occuring in name anywhere
--- select * from band where name like '%a%';
--- for 'a'  at starting use a%
--- for 'a' at ending use %a
--- for 'a' occurs exactly after 2 letters use '__a%'
--- for 'a' occurs at last 3rd position use '%a__'
+-- 🔹 Find bands where 'name' starts with 'a'
+SELECT * FROM band WHERE name LIKE 'a%';
 
--- This will print the datapoints whose release_year is in between 2021 and 2023 including 2021 & 2023
--- select * from band where release_year between 2021 and 2023; 
+-- 🔹 Find bands where 'name' ends with 'a'
+SELECT * FROM band WHERE name LIKE '%a';
 
--- Adding one more datapoint in table
-   insert into band values ('BYD',7,2015,'China'); 
+-- 🔹 Find bands where 'a' appears exactly after 2 letters
+SELECT * FROM band WHERE name LIKE '__a%';
 
--- Adding one more datapoint where release_year in null
-   insert into band values ('Maruti',8,null,'India'); 
+-- 🔹 Find bands where 'a' appears at the 3rd last position
+SELECT * FROM band WHERE name LIKE '%a__';
 
--- This will display the datapoint whose release_year is null
--- select * from band where release_year is  null;  
+-- 🔹 Select bands where 'release_year' is between 2021 and 2023 (inclusive)
+SELECT * FROM band WHERE release_year BETWEEN 2021 AND 2023;
 
--- This will display the average value of id in table band 
--- select avg(id) from band;  
+-- 🔹 Select records where 'release_year' is NULL
+SELECT * FROM band WHERE release_year IS NULL;
 
--- This will display the sum of id values
--- select sum(id) from band;   
+-- ============================================================
+-- 📊 Aggregation Queries
+-- ============================================================
 
--- This wil count how many times each name appears in the table.
--- select name , count(id) from band group by name; 
+-- 🔹 Count how many times each name appears in the table
+SELECT name, COUNT(id) FROM band GROUP BY name;
+
+-- 🔹 Display the average value of 'id'
+SELECT AVG(id) FROM band;
+
+-- 🔹 Calculate the sum of all 'id' values
+SELECT SUM(id) FROM band;
