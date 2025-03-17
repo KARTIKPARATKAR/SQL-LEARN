@@ -9,5 +9,5 @@ I followed a **YouTube tutorial** by **WebDevSimplified**, where SQL fundamental
 
 ## SQL Queries
 I have documented key SQL queries in my GitHub repository.  
-📂 **Explore the queries**: [View on GitHub](https://github.com/KARTIKPARATKAR/SQL-LEARN/blob/main/SQL%20QUERIES)
+📂 **Explore the queries**: [View on GitHub](https://github.com/KARTIKPARATKAR/SQL-LEARN/blob/main/SQL%20QUERIES) <br/>
 📂 **Practice**: [View on GitHub](https://github.com/KARTIKPARATKAR/SQL-LEARN/blob/main/sqlpractice.txt)
