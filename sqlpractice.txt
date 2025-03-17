@@ -1,0 +1,82 @@
+-- Creating a table with name band
+create table band ( name varchar(255) NOT NULL,
+                   id int not null,
+                   primary key(id)
+                   );
+-- Adding one new column with name release_year as INT data types
+ALTER TABLE band ADD release_year INT ;
+--Adding one new column with name country as varchar(255) data types
+ALTER TABLE band ADD country varchar(255) NOT NULL;
+
+-- Now adding the values/entries to the table band
+INSERT INTO band VALUES ( 'KSP' , 1,2020,'India');
+
+-- Printing whole table
+-- select * from band;  
+
+-- Inserting entries in table band
+insert into band values ( 'tata',2,2021,'India');
+insert into band values ( 'mahindra',3,2022,'India');
+insert into band values ( 'toyota',4,2023,'China');
+
+
+-- This will select the records which is having id leass than or equal to 3
+-- select * from band where id <=3; 
+
+-- SO this command will select name as band_name , id as band_id , release_year as band_release_year and country as band_country and display
+-- select name as "band_name",id as "band_id", release_year as "band_release_year",country as "band_country" from band; 
+
+-- This will arrange the table according to A to Z by country column
+-- select  * from band order by country; 
+
+-- This will order by name from A to Z
+-- select * from band order by name; 
+
+-- This will order the table by name column from Z to A
+-- select * from band order by name DESC; 
+
+-- This will create one more row /datapoint in a table called band
+   insert into band values ('ford',5,2019,'america');
+
+-- Here i am writing a entry which has some duplicates as tata entry which we had written previously
+   insert into band values('tata',6,2018,'India'); 
+
+-- This will display everything be it duplicate or distinct
+-- select * from band; 
+
+-- This will display only distinct name from band table.
+-- select distinct name from band; 
+
+-- This will display only distinct country
+-- select distinct country from band; 
+
+-- This command will update the country name as Mahindra-India where id is 3
+-- update band set country = 'Mahindra-India' where id=3; 
+
+-- This will print if a is occuring in name anywhere
+-- select * from band where name like '%a%';
+-- for 'a'  at starting use a%
+-- for 'a' at ending use %a
+-- for 'a' occurs exactly after 2 letters use '__a%'
+-- for 'a' occurs at last 3rd position use '%a__'
+
+-- This will print the datapoints whose release_year is in between 2021 and 2023 including 2021 & 2023
+-- select * from band where release_year between 2021 and 2023; 
+
+-- Adding one more datapoint in table
+   insert into band values ('BYD',7,2015,'China'); 
+
+-- Adding one more datapoint where release_year in null
+   insert into band values ('Maruti',8,null,'India'); 
+
+-- This will display the datapoint whose release_year is null
+-- select * from band where release_year is  null;  
+
+-- This will display the average value of id in table band 
+-- select avg(id) from band;  
+
+-- This will display the sum of id values
+-- select sum(id) from band;   
+
+-- This wil count how many times each name appears in the table.
+-- select name , count(id) from band group by name; 
